@@ -1,14 +1,25 @@
 package PriorityQueues;
 import java.util.*;
 public class Kth_largest_Element {
-	public static int kthLargest(int n, int[] input, int k) {
+	public static ArrayList<Integer> kLargest(int input[], int k) {
+        int n=input.length;
 		PriorityQueue<Integer> pq = new PriorityQueue<>();
-		for(int i=0;i<n;i++){
+        ArrayList<Integer> ans=new ArrayList<>();
+        int i=0;
+		for(;i<k;i++){
             pq.add(input[i]);
         }
-        for(int i=0;i<n;i++){
-            input[i]=pq.poll();
+        for(;i<n;i++){
+            if(input[i]>pq.peek()){
+                pq.poll();
+                pq.add(input[i]);
+            }
         }
-        return input[n-k];
+        
+        for(int j=0;j<k;j++){
+            ans.add(pq.poll());
+        }
+        return ans;
+		
 	}
 }
